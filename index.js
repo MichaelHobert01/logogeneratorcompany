@@ -18,7 +18,7 @@ inquirer
             type: "list",
             message: "Pick a shape",
             name: "shape",
-            choices: ['circle', 'square', 'triangle']
+            choices: ['circle', 'rect', 'triangle']
         },
         {
             type: "input",
@@ -31,10 +31,49 @@ inquirer
             name: "backColor",
         },
     ]).then(answers => {
+        let shape = '';
+        switch (answers.shape) {
+            case 'circle':
+                shape = `<circle cx="110" cy="95" r="25" />`;
+                break;
+            case 'rect':
+                shape = `<rect x="85" y="70" width="50" height="50" />`;
+                break;
+            case 'triangle':
+                shape = `<polygon points="90,105 140,105 115,55" />`;
+                break;
+        }
+
         const svg = `<svg width="300" height="200">
-    <text x="0" y="50" font-size="50" fill="${answers.textColor}">${answers.letters}</text>
-    <${answers.shape} cx="150" cy="125" r="50" fill="${answers.backColor}" />
-</svg>`;
+    <style>
+        text {
+            font-size: 17.5px;
+            fill: ${answers.textColor};
+            font-family: Arial, sans-serif;
+            z-index: 2;
+        }
+        circle {
+            fill: ${answers.backColor};
+            stroke: black;
+            stroke-width: 2px;
+            z-index: 1; 
+        }
+        rect {
+            fill: ${answers.backColor};
+            stroke: black;
+            stroke-width: 2px;
+            z-index: 1; 
+        }
+        polygon {
+            fill: ${answers.backColor};
+            stroke: black;
+            stroke-width: 2px;
+            z-index: 1;
+        }
+        </style>
+        ${shape}
+        <text x="100" y="100">${answers.letters}</text>
+        </svg>`;
         fs.writeFileSync('logo.svg', svg);
         console.log('Your logo has been printed');
-    }); 
+    });
