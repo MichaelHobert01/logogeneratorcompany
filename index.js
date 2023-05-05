@@ -37,7 +37,7 @@ inquirer
                 shape = `<circle cx="110" cy="95" r="25" />`;
                 break;
             case 'rect':
-                shape = `<rect x="85" y="70" width="50" height="50" />`;
+                shape = `<rect x="90" y="70" width="50" height="50" />`;
                 break;
             case 'triangle':
                 shape = `<polygon points="90,105 140,105 115,55" />`;
